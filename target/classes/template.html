@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart&oacute;n de Bingo - ${numCarton}</title>
+</head>
+<style>
+    :root{
+        --color_fondo:#555;
+        --color_tabla:#333;
+        --color_texto:#fff;
+        --color_seleccionado:#999;
+        --color_marcado:#28ad3a;
+    }
+
+    @media (max-width: 900px) {
+        :root {
+            --tamano_carton: 90vw;
+        }
+    }
+    
+    @media (min-width: 901px) {
+        :root {
+            --tamano_carton: 30vw;
+        }
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: var(--color_fondo);
+        color: var(--color_texto);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    main {
+        margin-top: 5px;
+        width: var(--tamano_carton);
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        
+        border-radius: 10px;
+        background-color: var(--color_tabla);
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: var(--color_fondo);
+        margin: 5px;
+        border-radius: 10px;
+    }
+    .casilla:hover {
+        box-shadow: 0 0 5px var(--color_seleccionado);
+    }
+
+    .marcado {
+        background-color: var(--color_marcado);
+        box-shadow: 0 0 5px var(--color_marcado);
+        img{
+            opacity: 0.5;
+        }
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    img{
+        width: 110%;
+        height: 110%;
+    }
+</style>
+<body>
+    <h1>Cart&oacute;n de Bingo - ${numCarton}</h1>
+    <main>
+        ${carton}
+    </main>
+    
+    <footer>
+        <p>&copy; Dragones De Plata - Albion Online</p>
+    </footer>
+</body>
+<script>
+    const casillas = document.querySelectorAll('.casilla');
+    casillas.forEach(casilla => {
+        casilla.addEventListener('click', () => {
+            casilla.classList.toggle('marcado');
+        });
+    });
+
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.setAttribute('draggable', false);
+    });
+</script>
+</html>

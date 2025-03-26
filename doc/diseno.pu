@@ -1,0 +1,65 @@
+@startuml
+package es.pixel.bingo{
+    package view {
+        class MainView {
+            + pedirNumCartones() : int
+            + mostrarError(String error) : void
+        }
+    }
+
+    package controller {
+        class MainController {
+            - carton : Carton
+            - impresora : Impresora
+
+            + generar() : void
+        }
+    }
+
+    package model {
+        package utils{
+            interface Impresora {
+                + imprimir(Carton carton) : void
+            }
+
+            class ImpresoraHTML {
+                + imprimir(Carton carton) : void
+            }
+
+            Impresora <|.. ImpresoraHTML
+        }
+
+        package entities{
+
+            class Carton {
+                - casillas : Casilla[] 
+            }
+
+            abstract class Casilla {
+                - pos : int
+            }
+
+            class Vacia {
+
+            }
+
+            class Rellena {
+                - img : String
+            }
+
+            Casilla <|-- Vacia
+            Casilla <|-- Rellena
+        }
+    }
+
+    class App {
+        + main() : void
+    } 
+
+    App --> MainController
+    MainController --> MainView
+    MainController --> Impresora
+    MainController --> Carton
+}
+
+@enduml
